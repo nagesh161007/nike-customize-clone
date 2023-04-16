@@ -1,0 +1,19 @@
+.header {
+    top: 16px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 16px;
+    width: 100%;
+}
+
+.app .title {
+    font-size: 14px;
+    margin-bottom: 0px;
+    font-weight: 600;
+}
+
+.logo {
+    cursor: pointer;
+}

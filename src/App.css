@@ -5,3 +5,7 @@ canvas.webgl {
   object-fit: cover;
   background-color: #f6f6f6;
 }
+
+.app {
+  position: relative;
+}

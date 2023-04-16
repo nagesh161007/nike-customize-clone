@@ -7,7 +7,7 @@ function ColorPalette({ config, changeColor }) {
 
   return (
     <div className="color-palatte">
-      <div className="title">{title}</div>
+      <div className="color-tab-title">{title}</div>
       <div className="colors-tray">
         <ul className="colors-list">
           {colors.map((color, index) => {

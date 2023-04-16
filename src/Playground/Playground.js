@@ -10,6 +10,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { RoomEnvironment } from "../addon/RoomEnvironment";
 import Customizer from "../components/Customizer/Customizer";
+import "./Playground.css";
 
 function removeObjects(modelRef) {
   const unnecessaryGroups = ["lf_pid_grp", "rt_pid_grp"];
@@ -143,7 +144,26 @@ function Playground() {
   }
 
   return (
-    <div>
+    <div className="app">
+      <div className="header">
+        <div className="title">
+          Converse Custom Chuck Taylor All Star Low Top
+        </div>
+        <a
+          href={"https://github.com/nagesh161007/nike-customize-clone"}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <img
+            height={24}
+            width={24}
+            src={"/logo/github-mark.svg"}
+            alt={"git-logo"}
+            className="logo"
+            onClick={() => {}}
+          ></img>
+        </a>
+      </div>
       <canvas ref={canvasRef} className="webgl"></canvas>
       <Customizer modelRef={modelRef}></Customizer>
     </div>
