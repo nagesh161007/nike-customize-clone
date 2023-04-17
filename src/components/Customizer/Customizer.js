@@ -4,9 +4,10 @@ import ColorPalette from "../ColorPalette/ColorPalette";
 import ColorConfig from "./ColorConFig";
 import Carousel from "../Carousel/Carousel";
 import * as THREE from "three";
+import gsap from "gsap";
 
 const Customizer = (props) => {
-  const { modelRef } = props;
+  const { modelRef, controlsRef } = props;
 
   function changeColor(color, types) {
     types.forEach((type) => {
@@ -17,6 +18,14 @@ const Customizer = (props) => {
       modelRef.current.getObjectByName(type).material.color = new THREE.Color(
         new THREE.Color(color)
       );
+    });
+
+    gsap.to(modelRef.current.rotation, {
+      x: 0,
+      y: 1,
+      z: 0,
+      duration: 1,
+      ease: "power3.inOut",
     });
   }
 

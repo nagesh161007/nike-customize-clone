@@ -75,7 +75,7 @@ function Playground() {
     const material = new THREE.MeshBasicMaterial({ map: simpleShadow });
     shadowPlane.material = material;
     shadowPlane.visible = true;
-    model.position.x = 1.2;
+    model.position.x = 1.4;
     model.position.y = 0;
   };
 
@@ -96,6 +96,7 @@ function Playground() {
     });
 
     cameraRef.current = setUpCamera(canvasRef);
+    window.camera = cameraRef.current;
     setupLights(scene);
     rendererRef.current = setUpRenderer(canvasRef);
     controlsRef.current = setupControls(cameraRef.current, canvasRef);
@@ -165,7 +166,11 @@ function Playground() {
         </a>
       </div>
       <canvas ref={canvasRef} className="webgl"></canvas>
-      <Customizer modelRef={modelRef}></Customizer>
+      <Customizer
+        modelRef={modelRef}
+        cameraRef={cameraRef}
+        controlsRef={controlsRef}
+      ></Customizer>
     </div>
   );
 }
