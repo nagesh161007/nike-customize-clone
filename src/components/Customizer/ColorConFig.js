@@ -14,6 +14,11 @@ const colorscustomiser = [
     type: ["lf_quarter_lateral", "rt_quarter_lateral"],
     title: "Outside Body",
     show: true,
+    modelPosition: {
+      x: 1.4022229023529016,
+      y: 1.5763595539346935,
+      z: -2.520576777950165,
+    },
   },
   {
     colors: [
@@ -30,6 +35,11 @@ const colorscustomiser = [
     type: ["lf_quarter_medial", "rt_quarter_medial"],
     title: "Inside Body",
     show: true,
+    modelPosition: {
+      x: 2.823991314199918,
+      y: 1.7878903777653403,
+      z: -1.452715309298491,
+    },
   },
   {
     colors: [
@@ -46,6 +56,11 @@ const colorscustomiser = [
     type: ["lf_toe_cap", "rt_toe_cap"],
     title: "Tongue",
     show: false,
+    modelPosition: {
+      x: 2.977606749619115,
+      y: 2.173233234682133,
+      z: 0.0026341197430875146,
+    },
   },
   {
     colors: [
@@ -62,6 +77,11 @@ const colorscustomiser = [
     type: ["lf_heel_stay", "rt_heel_stay"],
     title: "Heal Stripe",
     show: false,
+    modelPosition: {
+      x: -1.0299898841590989,
+      y: 2.124386135135839,
+      z: -0.0016450250091937502,
+    },
   },
   {
     colors: [
@@ -78,6 +98,11 @@ const colorscustomiser = [
     type: ["lf_liner_medial", "rt_liner_medial"],
     title: "Lining",
     show: false,
+    modelPosition: {
+      x: -0.4354405601616895,
+      y: 2.832152187505139,
+      z: -0.04914204560550159,
+    },
   },
   {
     colors: [
@@ -113,6 +138,11 @@ const colorscustomiser = [
     ],
     title: "Stitch",
     show: true,
+    modelPosition: {
+      x: 1.4022229023529016,
+      y: 1.5763595539346935,
+      z: -2.520576777950165,
+    },
   },
   {
     colors: [
@@ -129,6 +159,11 @@ const colorscustomiser = [
     type: ["lf_lace_a", "lf_lace_b", "rt_lace_a", "rt_lace_b"],
     title: "Laces",
     show: true,
+    modelPosition: {
+      x: 3.051502032155027,
+      y: 2.0010958107433243,
+      z: -0.02069542851436154,
+    },
   },
   {
     colors: [
@@ -152,6 +187,11 @@ const colorscustomiser = [
     ],
     title: "Rubber",
     show: true,
+    modelPosition: {
+      x: 1.5246652317257827,
+      y: 0.7191242943754226,
+      z: -2.7241622522032856,
+    },
   },
   {
     colors: [
@@ -174,6 +214,11 @@ const colorscustomiser = [
     ],
     title: "Racing Stripe",
     show: true,
+    modelPosition: {
+      x: 1.524262654907004,
+      y: 0.7272867713954555,
+      z: -2.7220719963467888,
+    },
   },
 ];
 

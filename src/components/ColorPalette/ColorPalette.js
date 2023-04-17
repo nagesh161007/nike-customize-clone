@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import "./ColorPalette.css";
 
-function ColorPalette({ config, changeColor }) {
-  const { colors, type, title } = config;
+function ColorPalette({ config, changeColor, indexString }) {
+  const { colors, type, title, modelPosition } = config;
   const [selectedColorIndex, setSelectedColor] = useState(colors[0]);
 
   return (
     <div className="color-palatte">
-      <div className="color-tab-title">{title}</div>
+      <div className="color-tab-title">
+        {title}
+        {"  "}
+        {indexString}
+      </div>
       <div className="colors-tray">
         <ul className="colors-list">
           {colors.map((color, index) => {
@@ -20,7 +24,7 @@ function ColorPalette({ config, changeColor }) {
                 style={{ background: color }}
                 onClick={() => {
                   setSelectedColor(index);
-                  changeColor(color, type);
+                  changeColor(color, type, modelPosition);
                 }}
               ></li>
             );

@@ -121,7 +121,7 @@ function Playground() {
     scene.background = new THREE.Color(0xf6f6f6);
     scene.environment = environmentMap;
 
-    debugObject.envMapIntensity = 1.5;
+    debugObject.envMapIntensity = 3;
 
     window.addEventListener("resize", () => {
       resize(rendererRef, cameraRef);
@@ -150,20 +150,36 @@ function Playground() {
         <div className="title">
           Converse Custom Chuck Taylor All Star Low Top
         </div>
-        <a
-          href={"https://github.com/nagesh161007/nike-customize-clone"}
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img
-            height={24}
-            width={24}
-            src={"/logo/github-mark.svg"}
-            alt={"git-logo"}
-            className="logo"
-            onClick={() => {}}
-          ></img>
-        </a>
+        <div>
+          <a
+            href={"https://github.com/nagesh161007/nike-customize-clone"}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              height={24}
+              width={24}
+              src={"/logo/github-mark.svg"}
+              alt={"git-logo"}
+              className="logo"
+              onClick={() => {}}
+            ></img>
+          </a>
+          <a
+            href={"https://www.linkedin.com/in/nageshwara-sairam/"}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img
+              height={24}
+              width={24}
+              src={"/logo/linkedin.svg"}
+              alt={"git-logo"}
+              className="logo"
+              onClick={() => {}}
+            ></img>
+          </a>
+        </div>
       </div>
       <canvas ref={canvasRef} className="webgl"></canvas>
       <Customizer

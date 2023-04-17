@@ -3,34 +3,45 @@ import "./Carousel.css";
 import LeftArrow from "../Carousel/LeftArrow";
 import RightArrow from "../Carousel/RightArrow";
 
-function Carousel({ children }) {
+function Carousel({ children, onChange }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(children.length);
 
-  // Set the length to match current children from props
   useEffect(() => {
     setLength(children.length);
   }, [children]);
 
   const next = () => {
     if (currentIndex < length - 1) {
-      setCurrentIndex((prevState) => prevState + 1);
+      setCurrentIndex((prevState) => {
+        onChange(prevState + 1);
+        return prevState + 1;
+      });
     }
   };
 
   const prev = () => {
     if (currentIndex > 0) {
-      setCurrentIndex((prevState) => prevState - 1);
+      setCurrentIndex((prevState) => {
+        onChange(prevState - 1);
+        return prevState - 1;
+      });
     }
   };
 
   return (
     <div className="carousel-container">
       <div className="arrows">
-        <div className="arrow" onClick={prev}>
+        <div
+          className={`arrow ${currentIndex <= 0 ? "disable" : ""} `}
+          onClick={prev}
+        >
           <LeftArrow></LeftArrow>
         </div>
-        <div className="arrow" onClick={next}>
+        <div
+          className={`arrow ${currentIndex >= length - 1 ? "disable" : ""} "" `}
+          onClick={next}
+        >
           <RightArrow></RightArrow>
         </div>
       </div>
