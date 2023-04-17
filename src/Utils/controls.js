@@ -7,8 +7,8 @@ export function setupControls(camera, canvasRef) {
   controls.rotateSpeed = 0.2; // decrease rotation speed by half
   controls.zoomSpeed = 0.5; // decrease zoom speed by half
   controls.panSpeed = 0.5; // decrease pan speed by half
-  controls.minDistance = 3;
-  controls.maxDistance = 3.5;
+  controls.minDistance = 3.5;
+  controls.maxDistance = 4.5;
   controls.enableDamping = true;
   controls.enablePan = false;
   controls.dampingFactor = 0.1;
