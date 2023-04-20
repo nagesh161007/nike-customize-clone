@@ -74,7 +74,7 @@ const colorscustomiser = [
       "#44312E",
       "#221E1F",
     ],
-    type: ["rt_tongue_outer", "rf_tongue_outer"],
+    type: ["rt_tongue_outer", "lf_tongue_outer"],
     title: "Toungue Outer",
     show: true,
     modelPosition: {
