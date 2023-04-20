@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import gui from "./debug";
 
-export const setupLights = (scene, debug = true) => {
+export const setupLights = (scene, debug = false) => {
   // Add hemisphere light to scene
   var hemiLight1 = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.2);
   hemiLight1.position.set(4, 2, 4);
