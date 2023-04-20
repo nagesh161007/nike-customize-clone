@@ -51,3 +51,9 @@ body {
 :focus {
   outline: none;
 }
+
+.footer {
+  text-align: center;
+  font-size: 10px;
+  color: lightgrey;
+}

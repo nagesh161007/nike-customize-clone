@@ -16,7 +16,7 @@ export function setUpRenderer(canvasRef) {
   renderer.physicallyCorrectLights = true;
   // renderer.outputEncoding = THREE.sRGBEncoding;
   renderer.toneMapping = THREE.ReinhardToneMapping;
-  renderer.toneMappingExposure = 1.5;
+  renderer.toneMappingExposure = 1;
   renderer.setSize(window.innerWidth, sizes.height - 250);
   renderer.setPixelRatio(2);
 

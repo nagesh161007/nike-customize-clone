@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import gui from "./debug";
 
-export const setupLights = (scene, debug = false) => {
+export const setupLights = (scene, debug = true) => {
   // Add hemisphere light to scene
   var hemiLight1 = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.2);
   hemiLight1.position.set(4, 2, 4);
@@ -84,7 +84,7 @@ export const setupLights = (scene, debug = false) => {
   gui.add(dirLight.position, "y").min(-5).max(5).step(0.001).name("lightY");
   gui.add(dirLight.position, "z").min(-5).max(5).step(0.001).name("lightZ");
   // Add the directional light to the scene
-  const directionalLight = new THREE.DirectionalLight(0xfffeef, 0.5);
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
   directionalLight.position.set(0, -1, 0);
   directionalLight.target.position.set(0, -1, 0);
   const directionalLighthelper = new THREE.DirectionalLightHelper(
