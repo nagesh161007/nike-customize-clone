@@ -1,7 +1,7 @@
 canvas.webgl {
   display: block;
   width: 100%;
-  height: 75vh !important;
+  height: 70vh !important;
   object-fit: cover;
   background-color: #f6f6f6;
 }
