@@ -35,24 +35,48 @@ const Customizer = (props) => {
     console.log("applying color to shoes");
   }
 
-  function changeColor(color, types, position) {
+  function changeColor(color, types) {
     types.forEach((type) => {
       modelRef.current.getObjectByName(type).material = modelRef.current
         .getObjectByName(type)
         .material.clone();
 
-      modelRef.current.getObjectByName(type).material.color = new THREE.Color(
-        new THREE.Color(color)
-      );
+      gsap.to(modelRef.current.getObjectByName(type).material.color, {
+        r: new THREE.Color(color).r,
+        g: new THREE.Color(color).g,
+        b: new THREE.Color(color).b,
+        duration: 0.3,
+      });
     });
-    window.modelRef = modelRef;
-    window.controlsRef = controlsRef;
+  }
 
-    gsap.to(controlsRef.current.object.position, {
-      ...position,
-      duration: 1,
-      ease: "power3.inOut",
+  function blinkAnimation(type) {
+    modelRef.current.getObjectByName(type).material = modelRef.current
+      .getObjectByName(type)
+      .material.clone();
+    var mesh = modelRef.current.getObjectByName(type);
+
+    if (!mesh) {
+      return;
+    }
+
+    // create a GSAP animation for the color transition
+    var colorTween = gsap.to(mesh.material, {
+      envMapIntensity: 20,
+      duration: 0.3,
+      onComplete: function () {
+        console.log("completing animation");
+        // create another GSAP animation to transition back to the old color
+        var oldColorTween = gsap.to(mesh.material, {
+          envMapIntensity: 3,
+          duration: 0.3,
+        });
+        oldColorTween.play();
+      },
     });
+
+    // start the color animation
+    colorTween.play();
   }
 
   const onChange = (index) => {
@@ -62,6 +86,9 @@ const Customizer = (props) => {
       ...position,
       duration: 1,
       ease: "power3.inOut",
+    });
+    colorConfig[index].type.forEach((type) => {
+      blinkAnimation(type);
     });
   };
 

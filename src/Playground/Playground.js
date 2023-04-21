@@ -9,6 +9,7 @@ import { setUpCamera } from "../Utils/camera";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { RoomEnvironment } from "../addon/RoomEnvironment";
+import { excludedMesh } from "../Utils/model";
 import Customizer from "../components/Customizer/Customizer";
 import "./Playground.css";
 
@@ -53,9 +54,13 @@ function Playground() {
         child.material instanceof THREE.MeshStandardMaterial
       ) {
         child.material.envMapIntensity = debugObject.envMapIntensity;
-        child.material.color.set(0xf4f6ef);
         child.castShadow = true;
         child.receiveShadow = true;
+        if (excludedMesh[child.name]) {
+          child.material.color.set(0xffffff);
+          return;
+        } else {
+        }
       }
     });
 
