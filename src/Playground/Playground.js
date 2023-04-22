@@ -158,7 +158,7 @@ function Playground() {
         <div className="title">
           Converse Custom Chuck Taylor All Star Low Top
         </div>
-        <div>
+        <div className="icons-list">
           <a
             href={"https://github.com/nagesh161007/nike-customize-clone"}
             target="_blank"

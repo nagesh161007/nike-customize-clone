@@ -155,7 +155,7 @@ const Customizer = (props) => {
     <div className="color-customizer">
       <div className="color-generator">
         <input
-          placeholder="Describe the theme or mood you want your color palette ..."
+          placeholder="Describe theme for color"
           type="text"
           className="description-input"
           value={description}
