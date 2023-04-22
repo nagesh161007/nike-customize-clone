@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./ColorPalette.css";
 
 function ColorPalette({ config, changeColor, indexString }) {
-  const { colors, type, title, modelPosition } = config;
+  const { colors, types, title, modelPosition } = config;
   const [selectedColorIndex, setSelectedColor] = useState(colors[0]);
 
   return (
@@ -24,7 +24,7 @@ function ColorPalette({ config, changeColor, indexString }) {
                 style={{ background: color }}
                 onClick={() => {
                   setSelectedColor(index);
-                  changeColor(color, type, modelPosition);
+                  changeColor(color, types, modelPosition);
                 }}
               ></li>
             );

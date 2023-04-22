@@ -7,7 +7,7 @@ import * as THREE from "three";
 import gsap from "gsap";
 import { fetchColorPalette } from "../../ApiUtils/api";
 import { generateConfig } from "../Customizer/buildColorConfig";
-
+import { getRandomColor } from "./colorUtils";
 const Customizer = (props) => {
   const { modelRef, controlsRef } = props;
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -30,11 +30,6 @@ const Customizer = (props) => {
     const response = await fetchColorPalette(requestBody);
     setGeneratedColorConfig(generateConfig(response.data.colors));
   }
-
-  function applyColorPalette() {
-    console.log("applying color to shoes");
-  }
-
   function changeColor(color, types) {
     types.forEach((type) => {
       modelRef.current.getObjectByName(type).material = modelRef.current
@@ -46,6 +41,28 @@ const Customizer = (props) => {
         g: new THREE.Color(color).g,
         b: new THREE.Color(color).b,
         duration: 0.3,
+      });
+    });
+  }
+
+  function applyColorPalette() {
+    const configToUse = generatedColorConfig.length
+      ? generatedColorConfig
+      : colorConfig;
+
+    configToUse.forEach((config) => {
+      const colorToApply = getRandomColor(config.colors);
+      config.types.forEach((type) => {
+        modelRef.current.getObjectByName(type).material = modelRef.current
+          .getObjectByName(type)
+          .material.clone();
+
+        gsap.to(modelRef.current.getObjectByName(type).material.color, {
+          r: new THREE.Color(colorToApply).r,
+          g: new THREE.Color(colorToApply).g,
+          b: new THREE.Color(colorToApply).b,
+          duration: 0.1,
+        });
       });
     });
   }
@@ -63,19 +80,19 @@ const Customizer = (props) => {
     // create a GSAP animation for the color transition
     var colorTween = gsap.to(mesh.material, {
       envMapIntensity: 20,
-      duration: 0.3,
+      animationDelay: 1,
+      duration: 0.5,
       onComplete: function () {
         console.log("completing animation");
         // create another GSAP animation to transition back to the old color
         var oldColorTween = gsap.to(mesh.material, {
           envMapIntensity: 3,
-          duration: 0.3,
+          duration: 0.5,
         });
         oldColorTween.play();
       },
     });
 
-    // start the color animation
     colorTween.play();
   }
 
@@ -87,7 +104,7 @@ const Customizer = (props) => {
       duration: 1,
       ease: "power3.inOut",
     });
-    colorConfig[index].type.forEach((type) => {
+    colorConfig[index].types.forEach((type) => {
       blinkAnimation(type);
     });
   };
@@ -119,7 +136,12 @@ const Customizer = (props) => {
             disabled={currentColorConfig.length ? false : true}
             onClick={applyColorPalette}
           >
-            Apply
+            <img
+              height={20}
+              width={20}
+              src="/logo/reload.svg"
+              alt="reload"
+            ></img>
           </button>
         </div>
       </div>
