@@ -40,6 +40,7 @@ function Playground() {
   const handleLoad = (gltf, scene) => {
     const model = gltf.scene;
     modelRef.current = model;
+    window.modelRef = modelRef.current;
     const shadowPlane = model.getObjectByName("shadow_plane");
 
     model.scale.set(1, 1, 1);

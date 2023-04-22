@@ -40,16 +40,7 @@ const colorscustomiser = [
     },
   },
   {
-    colors: [
-      "#FFFFFF",
-      "#B2B6B8",
-      "#E5E5E5",
-      "#C1C1C1",
-      "#FFA500",
-      "#007FFF",
-      "#FFE400",
-      "#8B0000",
-    ],
+    colors: ["#FFFFFF", "#B2B6B8", "#E5E5E5", "#C1C1C1"],
     types: ["lf_toe_cap", "rt_toe_cap"],
     title: "Tongue",
     show: false,

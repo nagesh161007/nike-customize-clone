@@ -65,6 +65,36 @@ const Customizer = (props) => {
         });
       });
     });
+    rotateModel();
+  }
+
+  function rotateModel() {
+    gsap.to(modelRef.current.rotation, {
+      y: Math.PI * 2,
+      duration: 0.8,
+      ease: "power1.inOut",
+    });
+  }
+
+  function reset() {
+    const configToUse = generatedColorConfig.length
+      ? generatedColorConfig
+      : colorConfig;
+
+    configToUse.forEach((config) => {
+      config.types.forEach((type) => {
+        modelRef.current.getObjectByName(type).material = modelRef.current
+          .getObjectByName(type)
+          .material.clone();
+
+        gsap.to(modelRef.current.getObjectByName(type).material.color, {
+          r: new THREE.Color(0xf6f6f6).r,
+          g: new THREE.Color(0xf6f6f6).g,
+          b: new THREE.Color(0xf6f6f6).b,
+          duration: 0.1,
+        });
+      });
+    });
   }
 
   function blinkAnimation(type) {
@@ -134,13 +164,22 @@ const Customizer = (props) => {
           <button
             className="apply-button"
             disabled={currentColorConfig.length ? false : true}
-            onClick={applyColorPalette}
+            onClick={reset}
           >
             <img
               height={20}
               width={20}
               src="/logo/reload.svg"
               alt="reload"
+            ></img>
+          </button>
+          <button className="apply-button" onClick={applyColorPalette}>
+            <img
+              className="apply-colors"
+              src="/logo/magic.png"
+              alt="magic"
+              width={32}
+              height={32}
             ></img>
           </button>
         </div>
