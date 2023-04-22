@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import "./Customizer.css";
 import ColorPalette from "../ColorPalette/ColorPalette";
 import colorConfig from "./ColorConFig";
@@ -46,7 +46,7 @@ const Customizer = (props) => {
     });
   }
 
-  function applyColorPalette() {
+  const applyColorPalette = useCallback(() => {
     const configToUse = generatedColorConfig.length
       ? generatedColorConfig
       : colorConfig;
@@ -66,9 +66,9 @@ const Customizer = (props) => {
         });
       });
     });
-  }
+  }, [modelRef, generatedColorConfig]);
 
-  function rotateModel() {
+  const rotateModel = useCallback(() => {
     gsap.to(modelRef.current.rotation, {
       y: Math.PI * 2,
       duration: 0.8,
@@ -81,9 +81,9 @@ const Customizer = (props) => {
         applyColorPalette();
       },
     });
-  }
+  }, [modelRef, applyColorPalette]);
 
-  function reset() {
+  const reset = useCallback(() => {
     const configToUse = generatedColorConfig.length
       ? generatedColorConfig
       : colorConfig;
@@ -102,34 +102,37 @@ const Customizer = (props) => {
         });
       });
     });
-  }
+  }, [generatedColorConfig, modelRef]);
 
-  function blinkAnimation(type) {
-    modelRef.current.getObjectByName(type).material = modelRef.current
-      .getObjectByName(type)
-      .material.clone();
-    var mesh = modelRef.current.getObjectByName(type);
+  const blinkAnimation = useCallback(
+    (type) => {
+      modelRef.current.getObjectByName(type).material = modelRef.current
+        .getObjectByName(type)
+        .material.clone();
+      var mesh = modelRef.current.getObjectByName(type);
 
-    if (!mesh) {
-      return;
-    }
+      if (!mesh) {
+        return;
+      }
 
-    // create a GSAP animation for the color transition
-    var colorTween = gsap.to(mesh.material, {
-      envMapIntensity: 20,
-      duration: 0.5,
-      onComplete: function () {
-        // create another GSAP animation to transition back to the old color
-        var oldColorTween = gsap.to(mesh.material, {
-          envMapIntensity: 3,
-          duration: 0.5,
-        });
-        oldColorTween.play();
-      },
-    });
+      // create a GSAP animation for the color transition
+      var colorTween = gsap.to(mesh.material, {
+        envMapIntensity: 20,
+        duration: 0.5,
+        onComplete: function () {
+          // create another GSAP animation to transition back to the old color
+          var oldColorTween = gsap.to(mesh.material, {
+            envMapIntensity: 3,
+            duration: 0.5,
+          });
+          oldColorTween.play();
+        },
+      });
 
-    colorTween.play();
-  }
+      colorTween.play();
+    },
+    [modelRef]
+  );
 
   const onChange = (index) => {
     setSelectedIndex(index);
