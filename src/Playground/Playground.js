@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import gui from "../Utils/debug";
 import { sizes } from "../Constants/modelConstants";
@@ -24,6 +24,7 @@ const debugObject = {};
 const textureLoader = new THREE.TextureLoader();
 
 function Playground() {
+  const [loading, setLoading] = useState(true);
   const sceneRef = useRef(null);
   const canvasRef = useRef(null);
   const cameraRef = useRef(null);
@@ -98,6 +99,7 @@ function Playground() {
     loader.setDRACOLoader(dracoLoader);
 
     loader.load("/model/nike-model.gltf", (gltf) => {
+      setLoading(false);
       handleLoad(gltf, scene);
     });
 
@@ -188,6 +190,7 @@ function Playground() {
         </div>
       </div>
       <canvas ref={canvasRef} className="webgl"></canvas>
+      {loading && <div class="loader"></div>}
       <Customizer
         modelRef={modelRef}
         cameraRef={cameraRef}
