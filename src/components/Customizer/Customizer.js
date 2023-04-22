@@ -30,6 +30,7 @@ const Customizer = (props) => {
     const response = await fetchColorPalette(requestBody);
     setGeneratedColorConfig(generateConfig(response.data.colors));
   }
+
   function changeColor(color, types) {
     types.forEach((type) => {
       modelRef.current.getObjectByName(type).material = modelRef.current
@@ -65,7 +66,6 @@ const Customizer = (props) => {
         });
       });
     });
-    rotateModel();
   }
 
   function rotateModel() {
@@ -73,6 +73,13 @@ const Customizer = (props) => {
       y: Math.PI * 2,
       duration: 0.8,
       ease: "power1.inOut",
+      onComplete: () => {
+        gsap.to(modelRef.current.rotation, {
+          y: 0,
+          duration: 0,
+        });
+        applyColorPalette();
+      },
     });
   }
 
@@ -110,10 +117,8 @@ const Customizer = (props) => {
     // create a GSAP animation for the color transition
     var colorTween = gsap.to(mesh.material, {
       envMapIntensity: 20,
-      animationDelay: 1,
       duration: 0.5,
       onComplete: function () {
-        console.log("completing animation");
         // create another GSAP animation to transition back to the old color
         var oldColorTween = gsap.to(mesh.material, {
           envMapIntensity: 3,
@@ -167,19 +172,19 @@ const Customizer = (props) => {
             onClick={reset}
           >
             <img
-              height={20}
-              width={20}
+              height={16}
+              width={16}
               src="/logo/reload.svg"
               alt="reload"
             ></img>
           </button>
-          <button className="apply-button" onClick={applyColorPalette}>
+          <button className="apply-button" onClick={rotateModel}>
             <img
               className="apply-colors"
               src="/logo/magic.png"
               alt="magic"
-              width={32}
-              height={32}
+              width={24}
+              height={24}
             ></img>
           </button>
         </div>

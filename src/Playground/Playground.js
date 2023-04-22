@@ -192,6 +192,7 @@ function Playground() {
         modelRef={modelRef}
         cameraRef={cameraRef}
         controlsRef={controlsRef}
+        canvasRef={canvasRef}
       ></Customizer>
     </div>
   );

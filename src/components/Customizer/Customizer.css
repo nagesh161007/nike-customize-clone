@@ -58,13 +58,13 @@
     padding: 10px 16px;
     cursor: pointer;
     border-radius: 32px;
-    margin: 0px 8px;
+    margin: 0px 4px;
     transition: opacity 200ms ease-in-out;
     background-color: white;
 }
 
 .apply-button {
-    min-width: 60px;
+    min-width: 40px;
     outline: none;
     border: 1px solid lightgray;
     padding: 4px;
