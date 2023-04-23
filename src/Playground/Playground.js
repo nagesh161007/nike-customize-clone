@@ -190,7 +190,7 @@ function Playground() {
         </div>
       </div>
       <canvas ref={canvasRef} className="webgl"></canvas>
-      {loading && <div class="loader"></div>}
+      {loading && <div className="loader"></div>}
       <Customizer
         modelRef={modelRef}
         cameraRef={cameraRef}

@@ -238,9 +238,10 @@ const Customizer = (props) => {
       </div>
       <div className="color-customizer-tab">
         <Carousel onChange={onChange}>
-          {currentColorConfig.map((config) => {
+          {currentColorConfig.map((config, index) => {
             return (
               <ColorPalette
+                key={index}
                 indexString={`${selectedIndex + 1}/${
                   currentColorConfig.length
                 }`}

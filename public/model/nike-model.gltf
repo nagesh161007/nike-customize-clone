@@ -3077,14 +3077,14 @@
       "uri": "../images/midsole_outsole_orm.png"
     },
     {
-      "mimeType": "image/png",
+      "mimeType": "image/jpg",
       "name": "midsole_outsole_base_color",
-      "uri": "../images/midsole_outsole_base_color.png"
+      "uri": "../images/midsole_outsole_base_color.jpg"
     },
     {
-      "mimeType": "image/png",
+      "mimeType": "image/jpg",
       "name": "eyelets_metal_normal",
-      "uri": "../images/eyelets_metal_normal.png"
+      "uri": "../images/eyelets_metal_normal.jpg"
     },
     {
       "mimeType": "image/png",
@@ -3112,9 +3112,9 @@
       "uri": "../images/default_base_color.png"
     },
     {
-      "mimeType": "image/png",
+      "mimeType": "image/jpg",
       "name": "eyelets_plastic_normal",
-      "uri": "../images/eyelets_plastic_normal.png"
+      "uri": "../images/eyelets_plastic_normal.jpg"
     },
     {
       "mimeType": "image/png",
@@ -3127,9 +3127,9 @@
       "uri": "../images/eyelets_plastic_base_color.png"
     },
     {
-      "mimeType": "image/png",
+      "mimeType": "image/jpg",
       "name": "tongue_label_logo_black_normal",
-      "uri": "../images/tongue_label_logo_black_normal.png"
+      "uri": "../images/tongue_label_logo_black_normal.jpg"
     },
     {
       "mimeType": "image/png",
@@ -3142,9 +3142,9 @@
       "uri": "../images/tongue_label_logo_rwb_base_color.png"
     },
     {
-      "mimeType": "image/png",
+      "mimeType": "image/jpg",
       "name": "tongue_label_logo_rwb_normal",
-      "uri": "../images/tongue_label_logo_rwb_normal.png"
+      "uri": "../images/tongue_label_logo_rwb_normal.jpg"
     },
     {
       "mimeType": "image/png",
