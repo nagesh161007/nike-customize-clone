@@ -69,7 +69,7 @@ function Playground() {
     removeObjects(modelRef.current);
 
     const simpleShadow = textureLoader.load(
-      "https://api.nike.com/customization/model_assets/v1/2c820251-5a2d-412f-be7a-4a4324b35627/1629231230072/ground_shadow.png",
+      "/images/ground_shadow.png",
       () => {
         console.log("success");
       },
@@ -116,12 +116,12 @@ function Playground() {
     ).texture;
 
     const environmentMap = new THREE.CubeTextureLoader().load([
-      "/texture/environmentMaps/0/nx.jpg",
-      "/texture/environmentMaps/0/ny.jpg",
-      "/texture/environmentMaps/0/nz.jpg",
-      "/texture/environmentMaps/0/px.jpg",
-      "/texture/environmentMaps/0/py.jpg",
-      "/texture/environmentMaps/0/pz.jpg",
+      "/texture/environmentMaps/nx.jpg",
+      "/texture/environmentMaps/ny.jpg",
+      "/texture/environmentMaps/nz.jpg",
+      "/texture/environmentMaps/px.jpg",
+      "/texture/environmentMaps/py.jpg",
+      "/texture/environmentMaps/pz.jpg",
     ]);
 
     environmentMap.encoding = THREE.sRGBEncoding;
