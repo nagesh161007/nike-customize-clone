@@ -201,6 +201,9 @@ const Customizer = (props) => {
             className="generate-button"
             disabled={description.trim() ? false : true}
             onClick={generateColorPalette}
+            aria-label="Generate color palette from description"
+            data-microtip-position="bottom"
+            role="tooltip"
           >
             Generate
           </button>
@@ -208,6 +211,9 @@ const Customizer = (props) => {
             className="apply-button"
             disabled={currentColorConfig.length ? false : true}
             onClick={reset}
+            aria-label="Reset"
+            data-microtip-position="bottom"
+            role="tooltip"
           >
             <img
               height={16}
@@ -216,7 +222,13 @@ const Customizer = (props) => {
               alt="reload"
             ></img>
           </button>
-          <button className="apply-button" onClick={rotateModel}>
+          <button
+            className="apply-button"
+            onClick={rotateModel}
+            aria-label="Surprise me"
+            data-microtip-position="bottom"
+            role="tooltip"
+          >
             <img
               className="apply-colors"
               src="/logo/magic.png"
@@ -225,7 +237,13 @@ const Customizer = (props) => {
               height={24}
             ></img>
           </button>
-          <button className="apply-button" onClick={download}>
+          <button
+            className="apply-button"
+            onClick={download}
+            aria-label="Download Image"
+            data-microtip-position="bottom"
+            role="tooltip"
+          >
             <img
               className="apply-colors"
               src="/logo/download.svg"

@@ -74,7 +74,6 @@
 
 .generate-button:disabled,
 .apply-button:disabled {
-    pointer-events: none;
     opacity: 0.7;
 }
 
