@@ -83,27 +83,6 @@ const Customizer = (props) => {
     });
   }, [modelRef, applyColorPalette]);
 
-  const reset = useCallback(() => {
-    const configToUse = generatedColorConfig.length
-      ? generatedColorConfig
-      : colorConfig;
-
-    configToUse.forEach((config) => {
-      config.types.forEach((type) => {
-        modelRef.current.getObjectByName(type).material = modelRef.current
-          .getObjectByName(type)
-          .material.clone();
-
-        gsap.to(modelRef.current.getObjectByName(type).material.color, {
-          r: new THREE.Color(0xf6f6f6).r,
-          g: new THREE.Color(0xf6f6f6).g,
-          b: new THREE.Color(0xf6f6f6).b,
-          duration: 0.1,
-        });
-      });
-    });
-  }, [generatedColorConfig, modelRef]);
-
   const blinkAnimation = useCallback(
     (type) => {
       modelRef.current.getObjectByName(type).material = modelRef.current
@@ -133,19 +112,48 @@ const Customizer = (props) => {
     },
     [modelRef]
   );
+  const onChange = useCallback(
+    (index) => {
+      setSelectedIndex(index);
+      const position = colorConfig[index].modelPosition;
+      gsap.to(controlsRef.current.object.position, {
+        ...position,
+        duration: 1,
+        ease: "power3.inOut",
+      });
+      colorConfig[index].types.forEach((type) => {
+        blinkAnimation(type);
+      });
+    },
+    [blinkAnimation, controlsRef]
+  );
 
-  const onChange = (index) => {
-    setSelectedIndex(index);
-    const position = colorConfig[index].modelPosition;
+  const reset = useCallback(() => {
+    const configToUse = generatedColorConfig.length
+      ? generatedColorConfig
+      : colorConfig;
+
+    configToUse.forEach((config) => {
+      config.types.forEach((type) => {
+        modelRef.current.getObjectByName(type).material = modelRef.current
+          .getObjectByName(type)
+          .material.clone();
+
+        gsap.to(modelRef.current.getObjectByName(type).material.color, {
+          r: new THREE.Color(0xf6f6f6).r,
+          g: new THREE.Color(0xf6f6f6).g,
+          b: new THREE.Color(0xf6f6f6).b,
+          duration: 0.1,
+        });
+      });
+    });
+    const position = colorConfig[2].modelPosition;
     gsap.to(controlsRef.current.object.position, {
       ...position,
       duration: 1,
       ease: "power3.inOut",
     });
-    colorConfig[index].types.forEach((type) => {
-      blinkAnimation(type);
-    });
-  };
+  }, [generatedColorConfig, modelRef, controlsRef]);
 
   function download() {
     const shadowPlane = modelRef.current.getObjectByName("shadow_plane");
