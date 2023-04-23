@@ -160,20 +160,6 @@ function Playground() {
         </div>
         <div className="icons-list">
           <a
-            href={"https://github.com/nagesh161007/nike-customize-clone"}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <img
-              height={24}
-              width={24}
-              src={"/logo/github-mark.svg"}
-              alt={"git-logo"}
-              className="logo"
-              onClick={() => {}}
-            ></img>
-          </a>
-          <a
             href={"https://www.linkedin.com/in/nageshwara-sairam/"}
             target="_blank"
             rel="noreferrer"
