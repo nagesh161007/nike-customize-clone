@@ -25,13 +25,12 @@
 }
 
 .description-input {
+    min-width: 200px;
     outline: none;
     visibility: visible;
     width: 100%;
     background: #f5f5f5;
-    color: inherit;
     padding: 12px 12px 12px 32px;
-    cursor: text;
     border: none;
     line-height: 18px;
     font-size: 14px;
@@ -78,4 +77,13 @@
 .apply-button:disabled {
     pointer-events: none;
     opacity: 0.7;
+}
+
+@media (max-width: 360px) {
+    .description-input {
+        min-width: unset !important;
+    }
+    .icons-list {
+        display: none !important;
+    }
 }

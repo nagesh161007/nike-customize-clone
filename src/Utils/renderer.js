@@ -9,6 +9,7 @@ export function setUpRenderer(canvasRef) {
     antialias: true,
     alpha: true,
     canvas: canvasRef.current,
+    preserveDrawingBuffer: true,
   });
 
   renderer.setSize(window.innerWidth, sizes.height - 250);

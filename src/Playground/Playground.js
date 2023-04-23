@@ -196,6 +196,7 @@ function Playground() {
         cameraRef={cameraRef}
         controlsRef={controlsRef}
         canvasRef={canvasRef}
+        rendererRef={rendererRef}
       ></Customizer>
     </div>
   );

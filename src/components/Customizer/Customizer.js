@@ -9,7 +9,7 @@ import { fetchColorPalette } from "../../ApiUtils/api";
 import { generateConfig } from "../Customizer/buildColorConfig";
 import { getRandomColor } from "./colorUtils";
 const Customizer = (props) => {
-  const { modelRef, controlsRef } = props;
+  const { modelRef, controlsRef, rendererRef } = props;
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [description, setDescription] = useState("");
   const [generatedColorConfig, setGeneratedColorConfig] = useState([]);
@@ -147,6 +147,33 @@ const Customizer = (props) => {
     });
   };
 
+  function download() {
+    const shadowPlane = modelRef.current.getObjectByName("shadow_plane");
+    shadowPlane.visible = false;
+    shadowPlane.material.visible = false;
+
+    setTimeout(() => {
+      const imageData = rendererRef.current.domElement.toDataURL();
+      const image = new Image();
+      image.src = imageData;
+      image.addEventListener("load", () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = image.width;
+        canvas.height = image.height;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(image, 0, 0);
+        const dataURL = canvas.toDataURL("image/png");
+        const link = document.createElement("a");
+        link.download = "nike-customizable.png";
+        link.href = dataURL;
+        document.body.appendChild(link);
+        link.click();
+        shadowPlane.visible = true;
+        shadowPlane.material.visible = true;
+      });
+    }, 100);
+  }
+
   const currentColorConfig = generatedColorConfig.length
     ? generatedColorConfig
     : colorConfig;
@@ -185,6 +212,15 @@ const Customizer = (props) => {
             <img
               className="apply-colors"
               src="/logo/magic.png"
+              alt="magic"
+              width={24}
+              height={24}
+            ></img>
+          </button>
+          <button className="apply-button" onClick={download}>
+            <img
+              className="apply-colors"
+              src="/logo/download.svg"
               alt="magic"
               width={24}
               height={24}
