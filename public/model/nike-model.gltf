@@ -3067,9 +3067,9 @@
   ],
   "images": [
     {
-      "mimeType": "image/png",
+      "mimeType": "image/jpg",
       "name": "midsole_outsole_normal",
-      "uri": "../images/midsole_outsole_normal.png"
+      "uri": "../images/midsole_outsole_normal.jpg"
     },
     {
       "mimeType": "image/png",
@@ -3097,14 +3097,14 @@
       "uri": "../images/eyelets_metal_base_color.png"
     },
     {
-      "mimeType": "image/png",
+      "mimeType": "image/jpg",
       "name": "default_normal",
-      "uri": "../images/default_normal.png"
+      "uri": "../images/default_normal.jpg"
     },
     {
-      "mimeType": "image/png",
+      "mimeType": "image/jpg",
       "name": "default_orm",
-      "uri": "../images/default_orm.png"
+      "uri": "../images/default_orm.jpg"
     },
     {
       "mimeType": "image/png",
