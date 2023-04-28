@@ -1,71 +1,71 @@
-import React, { useCallback, useState } from 'react'
-import './Customizer.css'
-import ColorPalette from '../ColorPalette/ColorPalette'
-import colorConfig from './ColorConFig'
-import Carousel from '../Carousel/Carousel'
-import * as THREE from 'three'
-import gsap from 'gsap'
-import { fetchColorPalette } from '../../ApiUtils/api'
-import { generateConfig } from '../Customizer/buildColorConfig'
-import { getRandomColor } from './colorUtils'
+import React, { useCallback, useState } from 'react';
+import './Customizer.css';
+import ColorPalette from '../ColorPalette/ColorPalette';
+import colorConfig from './ColorConFig';
+import Carousel from '../Carousel/Carousel';
+import * as THREE from 'three';
+import gsap from 'gsap';
+import { fetchColorPalette } from '../../ApiUtils/api';
+import { generateConfig } from '../Customizer/buildColorConfig';
+import { getRandomColor } from './colorUtils';
 
 const Customizer = (props) => {
-  const { modelRef, controlsRef, rendererRef } = props
-  const [selectedIndex, setSelectedIndex] = useState(0)
-  const [description, setDescription] = useState('')
-  const [generatedColorConfig, setGeneratedColorConfig] = useState([])
+  const { modelRef, controlsRef, rendererRef } = props;
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [description, setDescription] = useState('');
+  const [generatedColorConfig, setGeneratedColorConfig] = useState([]);
 
   function handleDescriptionChange(event) {
-    setDescription(event.target.value)
+    setDescription(event.target.value);
   }
 
   async function generateColorPalette() {
     if (!description) {
-      return
+      return;
     }
     const requestBody = {
       description: description,
       type: 'DESCRIPTION',
       count: 8,
-    }
-    const response = await fetchColorPalette(requestBody)
-    setGeneratedColorConfig(generateConfig(response.data.colors))
+    };
+    const response = await fetchColorPalette(requestBody);
+    setGeneratedColorConfig(generateConfig(response.data.colors));
   }
 
   function changeColor(color, types) {
     types.forEach((type) => {
       modelRef.current.getObjectByName(type).material = modelRef.current
         .getObjectByName(type)
-        .material.clone()
+        .material.clone();
 
       gsap.to(modelRef.current.getObjectByName(type).material.color, {
         r: new THREE.Color(color).r,
         g: new THREE.Color(color).g,
         b: new THREE.Color(color).b,
         duration: 0.3,
-      })
-    })
+      });
+    });
   }
 
   const applyColorPalette = useCallback(() => {
-    const configToUse = generatedColorConfig.length ? generatedColorConfig : colorConfig
+    const configToUse = generatedColorConfig.length ? generatedColorConfig : colorConfig;
 
     configToUse.forEach((config) => {
-      const colorToApply = getRandomColor(config.colors)
+      const colorToApply = getRandomColor(config.colors);
       config.types.forEach((type) => {
         modelRef.current.getObjectByName(type).material = modelRef.current
           .getObjectByName(type)
-          .material.clone()
+          .material.clone();
 
         gsap.to(modelRef.current.getObjectByName(type).material.color, {
           r: new THREE.Color(colorToApply).r,
           g: new THREE.Color(colorToApply).g,
           b: new THREE.Color(colorToApply).b,
           duration: 0.1,
-        })
-      })
-    })
-  }, [modelRef, generatedColorConfig])
+        });
+      });
+    });
+  }, [modelRef, generatedColorConfig]);
 
   const rotateModel = useCallback(() => {
     gsap.to(modelRef.current.rotation, {
@@ -76,21 +76,21 @@ const Customizer = (props) => {
         gsap.to(modelRef.current.rotation, {
           y: 0,
           duration: 0,
-        })
-        applyColorPalette()
+        });
+        applyColorPalette();
       },
-    })
-  }, [modelRef, applyColorPalette])
+    });
+  }, [modelRef, applyColorPalette]);
 
   const blinkAnimation = useCallback(
     (type) => {
       modelRef.current.getObjectByName(type).material = modelRef.current
         .getObjectByName(type)
-        .material.clone()
-      var mesh = modelRef.current.getObjectByName(type)
+        .material.clone();
+      var mesh = modelRef.current.getObjectByName(type);
 
       if (!mesh) {
-        return
+        return;
       }
 
       // create a GSAP animation for the color transition
@@ -102,84 +102,84 @@ const Customizer = (props) => {
           var oldColorTween = gsap.to(mesh.material, {
             envMapIntensity: 3,
             duration: 0.5,
-          })
-          oldColorTween.play()
+          });
+          oldColorTween.play();
         },
-      })
+      });
 
-      colorTween.play()
+      colorTween.play();
     },
     [modelRef],
-  )
+  );
   const onChange = useCallback(
     (index) => {
-      setSelectedIndex(index)
-      const position = colorConfig[index].modelPosition
+      setSelectedIndex(index);
+      const position = colorConfig[index].modelPosition;
       gsap.to(controlsRef.current.object.position, {
         ...position,
         duration: 1,
         ease: 'power3.inOut',
-      })
+      });
       colorConfig[index].types.forEach((type) => {
-        blinkAnimation(type)
-      })
+        blinkAnimation(type);
+      });
     },
     [blinkAnimation, controlsRef],
-  )
+  );
 
   const reset = useCallback(() => {
-    const configToUse = generatedColorConfig.length ? generatedColorConfig : colorConfig
+    const configToUse = generatedColorConfig.length ? generatedColorConfig : colorConfig;
 
     configToUse.forEach((config) => {
       config.types.forEach((type) => {
         modelRef.current.getObjectByName(type).material = modelRef.current
           .getObjectByName(type)
-          .material.clone()
+          .material.clone();
 
         gsap.to(modelRef.current.getObjectByName(type).material.color, {
           r: new THREE.Color(0xf6f6f6).r,
           g: new THREE.Color(0xf6f6f6).g,
           b: new THREE.Color(0xf6f6f6).b,
           duration: 0.1,
-        })
-      })
-    })
-    const position = colorConfig[2].modelPosition
+        });
+      });
+    });
+    const position = colorConfig[2].modelPosition;
     gsap.to(controlsRef.current.object.position, {
       ...position,
       duration: 1,
       ease: 'power3.inOut',
-    })
-  }, [generatedColorConfig, modelRef, controlsRef])
+    });
+  }, [generatedColorConfig, modelRef, controlsRef]);
 
   function download() {
-    const shadowPlane = modelRef.current.getObjectByName('shadow_plane')
-    shadowPlane.visible = false
-    shadowPlane.material.visible = false
+    const shadowPlane = modelRef.current.getObjectByName('shadow_plane');
+    shadowPlane.visible = false;
+    shadowPlane.material.visible = false;
 
     setTimeout(() => {
-      const imageData = rendererRef.current.domElement.toDataURL()
-      const image = new Image()
-      image.src = imageData
+      const imageData = rendererRef.current.domElement.toDataURL();
+      const image = new Image();
+      image.src = imageData;
       image.addEventListener('load', () => {
-        const canvas = document.createElement('canvas')
-        canvas.width = image.width
-        canvas.height = image.height
-        const ctx = canvas.getContext('2d')
-        ctx.drawImage(image, 0, 0)
-        const dataURL = canvas.toDataURL('image/png')
-        const link = document.createElement('a')
-        link.download = 'nike-customizable.png'
-        link.href = dataURL
-        document.body.appendChild(link)
-        link.click()
-        shadowPlane.visible = true
-        shadowPlane.material.visible = true
-      })
-    }, 100)
+        const canvas = document.createElement('canvas');
+        canvas.width = image.width;
+        canvas.height = image.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(image, 0, 0);
+        const dataURL = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.download = 'nike-customizable.png';
+        link.href = dataURL;
+        document.body.appendChild(link);
+        link.click();
+        shadowPlane.visible = true;
+        shadowPlane.material.visible = true;
+      });
+    }, 100);
   }
 
-  const currentColorConfig = generatedColorConfig.length ? generatedColorConfig : colorConfig
+  const currentColorConfig = generatedColorConfig.length ? generatedColorConfig : colorConfig;
 
   return (
     <div className='color-customizer'>
@@ -254,12 +254,12 @@ const Customizer = (props) => {
                 config={config}
                 changeColor={changeColor}
               ></ColorPalette>
-            )
+            );
           })}
         </Carousel>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Customizer
+export default Customizer;

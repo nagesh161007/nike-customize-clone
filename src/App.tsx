@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-import './App.css'
-import Playground from './Playground/Playground'
+import './App.css';
+import Playground from './Playground/Playground';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
         3D Model belongs to Nike, Inc used for educational purposes only
       </footer>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,7 +1,7 @@
-import { backendDevURL } from './ApiURlConstants'
+import { backendDevURL } from './ApiURlConstants';
 
 export async function fetchColorPalette(body: Record<string, string>) {
-  const colorPlatteUrl = `${backendDevURL}/api/handler`
+  const colorPlatteUrl = `${backendDevURL}/api/handler`;
   const response = await fetch(colorPlatteUrl, {
     method: 'POST',
     mode: 'cors',
@@ -13,7 +13,7 @@ export async function fetchColorPalette(body: Record<string, string>) {
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
     body: JSON.stringify(body),
-  })
-  const data = await response.json()
-  return data
+  });
+  const data = await response.json();
+  return data;
 }

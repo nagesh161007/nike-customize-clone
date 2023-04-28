@@ -190,6 +190,6 @@ const colorscustomiser = [
       z: -2.7220719963467888,
     },
   },
-]
+];
 
-export default colorscustomiser
+export default colorscustomiser;

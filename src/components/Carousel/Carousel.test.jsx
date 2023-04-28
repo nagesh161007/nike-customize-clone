@@ -1,12 +1,12 @@
-import React from 'react'
-import { render, screen } from '@testing-library/react'
-import Carousel from './Carousel'
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import Carousel from './Carousel';
 
 test('renders learn react link', () => {
   render(
     <Carousel
       onChange={() => {
-        console.log()
+        console.log();
       }}
       selectedIndex={2}
     >
@@ -14,7 +14,7 @@ test('renders learn react link', () => {
       <div>2</div>
       <div>3</div>
     </Carousel>,
-  )
-  const linkElement = screen.getByText(/5/i)
-  expect(linkElement).toBeInTheDocument()
-})
+  );
+  const linkElement = screen.getByText(/5/i);
+  expect(linkElement).toBeInTheDocument();
+});

@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import './ColorPalette.css'
+import React, { useState } from 'react';
+import './ColorPalette.css';
 
 function ColorPalette({ config, changeColor, indexString }) {
-  const { colors, types, title, modelPosition } = config
-  const [selectedColorIndex, setSelectedColor] = useState(colors[0])
+  const { colors, types, title, modelPosition } = config;
+  const [selectedColorIndex, setSelectedColor] = useState(colors[0]);
 
   return (
     <div className='color-palatte'>
@@ -21,16 +21,16 @@ function ColorPalette({ config, changeColor, indexString }) {
                 className={`color-circle ${index === selectedColorIndex ? 'selected' : ''}`}
                 style={{ background: color }}
                 onClick={() => {
-                  setSelectedColor(index)
-                  changeColor(color, types, modelPosition)
+                  setSelectedColor(index);
+                  changeColor(color, types, modelPosition);
                 }}
               ></li>
-            )
+            );
           })}
         </ul>
       </div>
     </div>
-  )
+  );
 }
 
-export default ColorPalette
+export default ColorPalette;

@@ -1,7 +1,7 @@
-import dat from 'lil-gui'
+import dat from 'lil-gui';
 
-const gui = new dat()
+const gui = new dat();
 
-gui.hide()
+gui.hide();
 
-export default gui
+export default gui;

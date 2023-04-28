@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react'
-import './Carousel.css'
-import LeftArrow from '../Carousel/LeftArrow'
-import RightArrow from '../Carousel/RightArrow'
+import React, { useState, useEffect } from 'react';
+import './Carousel.css';
+import LeftArrow from '../Carousel/LeftArrow';
+import RightArrow from '../Carousel/RightArrow';
 
 function Carousel({ children, onChange, selectedIndex }) {
-  const [length, setLength] = useState(children.length)
+  const [length, setLength] = useState(children.length);
 
   useEffect(() => {
-    setLength(children.length)
-  }, [children])
+    setLength(children.length);
+  }, [children]);
 
   const next = () => {
     if (selectedIndex < length - 1) {
-      onChange(selectedIndex + 1)
+      onChange(selectedIndex + 1);
     }
-  }
+  };
 
   const prev = () => {
     if (selectedIndex > 0) {
-      onChange(selectedIndex - 1)
+      onChange(selectedIndex - 1);
     }
-  }
+  };
 
   return (
     <div className='carousel-container'>
@@ -43,7 +43,7 @@ function Carousel({ children, onChange, selectedIndex }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Carousel
+export default Carousel;

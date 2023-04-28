@@ -1,2 +1,2 @@
-const meshConstants = {}
-export default meshConstants
+const meshConstants = {};
+export default meshConstants;
