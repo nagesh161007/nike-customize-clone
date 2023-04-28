@@ -21,4 +21,4 @@ export const excludedMesh = {
   lf_midsole_pinstripe: true,
   rt_shoe_grp: true,
   lf_shoe_grp: true,
-};
+}

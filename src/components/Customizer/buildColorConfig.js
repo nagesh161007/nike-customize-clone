@@ -1,8 +1,8 @@
-import colorscustomiser from "./ColorConFig";
+import colorscustomiser from './ColorConFig'
 
 export function generateConfig(colors) {
   const generatedConfig = colorscustomiser.map((config) => {
-    return { ...config, colors: [...colors] };
-  });
-  return generatedConfig;
+    return { ...config, colors: [...colors] }
+  })
+  return generatedConfig
 }
