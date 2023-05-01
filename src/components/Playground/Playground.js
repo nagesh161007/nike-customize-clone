@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import gui from '../../utils/cameraUtils/debug';
-import { sizes } from '../../constants/modelConstants';
 import { setupControls } from '../../utils/cameraUtils/controls';
 import { setUpRenderer } from '../../utils/cameraUtils/renderer';
 import { setupLights } from '../../utils/cameraUtils/light';
@@ -169,16 +168,12 @@ function Playground() {
   }, [animate]);
 
   function resize(renderer, cameraRef) {
-    // Update sizes
-    sizes.width = window.innerWidth;
-    sizes.height = window.innerHeight;
-
     // Update camera
-    cameraRef.current.aspect = sizes.width / sizes.height;
+    cameraRef.current.aspect = window.innerWidth / window.innerHeight;
     cameraRef.current.updateProjectionMatrix();
 
     // Update renderer
-    renderer.current.setSize(sizes.width, sizes.height - 200);
+    renderer.current.setSize(window.innerWidth, window.innerHeight - 200);
     renderer.current.setPixelRatio(2);
   }
 
