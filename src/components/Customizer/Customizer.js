@@ -1,16 +1,16 @@
 import React, { useCallback, useState } from 'react';
 import './Customizer.css';
 import ColorPalette from '../ColorPalette/ColorPalette';
-import colorConfig from './ColorConFig';
+import colorConfig from './ShoeConfig';
 import Carousel from '../Carousel/Carousel';
 import * as THREE from 'three';
 import gsap from 'gsap';
-import { fetchColorPalette } from '../../ApiUtils/api';
+import { fetchColorPalette } from '../../utils/apiUtils/api';
 import { generateConfig } from '../Customizer/buildColorConfig';
 import { getRandomColor } from './colorUtils';
 
 const Customizer = (props) => {
-  const { modelRef, controlsRef, rendererRef } = props;
+  const { modelRef, controlsRef, rendererRef, selectedShoeIndex } = props;
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [description, setDescription] = useState('');
   const [generatedColorConfig, setGeneratedColorConfig] = useState([]);
@@ -34,21 +34,28 @@ const Customizer = (props) => {
 
   function changeColor(color, types) {
     types.forEach((type) => {
-      modelRef.current.getObjectByName(type).material = modelRef.current
-        .getObjectByName(type)
-        .material.clone();
+      if (
+        modelRef.current.getObjectByName(type) &&
+        modelRef.current.getObjectByName(type).material
+      ) {
+        modelRef.current.getObjectByName(type).material = modelRef.current
+          .getObjectByName(type)
+          .material.clone();
 
-      gsap.to(modelRef.current.getObjectByName(type).material.color, {
-        r: new THREE.Color(color).r,
-        g: new THREE.Color(color).g,
-        b: new THREE.Color(color).b,
-        duration: 0.3,
-      });
+        gsap.to(modelRef.current.getObjectByName(type).material.color, {
+          r: new THREE.Color(color).r,
+          g: new THREE.Color(color).g,
+          b: new THREE.Color(color).b,
+          duration: 0.3,
+        });
+      }
     });
   }
 
   const applyColorPalette = useCallback(() => {
-    const configToUse = generatedColorConfig.length ? generatedColorConfig : colorConfig;
+    const configToUse = generatedColorConfig.length
+      ? generatedColorConfig
+      : colorConfig[selectedShoeIndex].colorConfigs;
 
     configToUse.forEach((config) => {
       const colorToApply = getRandomColor(config.colors);
@@ -84,6 +91,9 @@ const Customizer = (props) => {
 
   const blinkAnimation = useCallback(
     (type) => {
+      if (!modelRef.current.getObjectByName(type)) {
+        console.log(type);
+      }
       modelRef.current.getObjectByName(type).material = modelRef.current
         .getObjectByName(type)
         .material.clone();
@@ -109,26 +119,28 @@ const Customizer = (props) => {
 
       colorTween.play();
     },
-    [modelRef],
+    [modelRef.current],
   );
   const onChange = useCallback(
     (index) => {
       setSelectedIndex(index);
-      const position = colorConfig[index].modelPosition;
+      const position = colorConfig[selectedShoeIndex].colorConfigs[index].modelPosition;
       gsap.to(controlsRef.current.object.position, {
         ...position,
         duration: 1,
         ease: 'power3.inOut',
       });
-      colorConfig[index].types.forEach((type) => {
+      colorConfig[selectedShoeIndex].colorConfigs[index].types.forEach((type) => {
         blinkAnimation(type);
       });
     },
-    [blinkAnimation, controlsRef],
+    [blinkAnimation, controlsRef.current],
   );
 
   const reset = useCallback(() => {
-    const configToUse = generatedColorConfig.length ? generatedColorConfig : colorConfig;
+    const configToUse = generatedColorConfig.length
+      ? generatedColorConfig
+      : colorConfig[selectedShoeIndex].colorConfigs;
 
     configToUse.forEach((config) => {
       config.types.forEach((type) => {
@@ -144,7 +156,7 @@ const Customizer = (props) => {
         });
       });
     });
-    const position = colorConfig[2].modelPosition;
+    const position = colorConfig[selectedShoeIndex].colorConfigs[2].modelPosition;
     gsap.to(controlsRef.current.object.position, {
       ...position,
       duration: 1,
@@ -179,7 +191,11 @@ const Customizer = (props) => {
     }, 100);
   }
 
-  const currentColorConfig = generatedColorConfig.length ? generatedColorConfig : colorConfig;
+  const currentColorConfig = generatedColorConfig.length
+    ? generatedColorConfig
+    : colorConfig[selectedShoeIndex].colorConfigs;
+
+  console.log(colorConfig[selectedShoeIndex].id);
 
   return (
     <div className='color-customizer'>
