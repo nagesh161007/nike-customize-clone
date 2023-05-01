@@ -46,6 +46,8 @@
 }
 .button-container {
   display: flex;
+  flex: 1;
+  justify-content: center;
 }
 .generate-button,
 .apply-button {
@@ -85,4 +87,17 @@
   .icons-list {
     display: none !important;
   }
+}
+
+.menu-container {
+  align-self: center;
+}
+.menu-button {
+  padding: 10px;
+  cursor: pointer;
+  background-color: white;
+  font-size: 14px;
+  outline: none;
+  border: 1px solid lightgray;
+  border-radius: 32px;
 }

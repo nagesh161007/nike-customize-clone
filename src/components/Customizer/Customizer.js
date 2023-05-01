@@ -8,9 +8,12 @@ import gsap from 'gsap';
 import { fetchColorPalette } from '../../utils/apiUtils/api';
 import { generateConfig } from '../Customizer/buildColorConfig';
 import { getRandomColor } from './colorUtils';
+import BottomSheet from '../BottomSheet/BottomSheet';
+import Menu from '../Menu/Menu';
 
 const Customizer = (props) => {
   const { modelRef, controlsRef, rendererRef, selectedShoeIndex } = props;
+  const [showMenu, setShowMenu] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [description, setDescription] = useState('');
   const [generatedColorConfig, setGeneratedColorConfig] = useState([]);
@@ -137,6 +140,15 @@ const Customizer = (props) => {
     [blinkAnimation, controlsRef.current],
   );
 
+  function selectMenu(index) {
+    onChange(index);
+    setShowMenu(false);
+  }
+
+  function closeMenu() {
+    setShowMenu(false);
+  }
+
   const reset = useCallback(() => {
     const configToUse = generatedColorConfig.length
       ? generatedColorConfig
@@ -259,7 +271,20 @@ const Customizer = (props) => {
             ></img>
           </button>
         </div>
+        <div className='menu-container'>
+          <button
+            className='menu-button'
+            onClick={() => {
+              setShowMenu(!showMenu);
+            }}
+          >
+            MENU
+          </button>
+        </div>
       </div>
+      <BottomSheet show={showMenu}>
+        <Menu selectMenu={selectMenu} closeMenu={closeMenu}></Menu>
+      </BottomSheet>
       <div className='color-customizer-tab'>
         <Carousel onChange={onChange} selectedIndex={selectedIndex}>
           {currentColorConfig.map((config, index) => {
