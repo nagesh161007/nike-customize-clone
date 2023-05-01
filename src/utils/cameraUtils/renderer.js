@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import gui from './debug';
-import { sizes } from '../../constants/modelConstants';
 
 export function setUpRenderer(canvasRef) {
   // create a Three.js renderer
@@ -12,7 +11,7 @@ export function setUpRenderer(canvasRef) {
     preserveDrawingBuffer: true,
   });
 
-  renderer.setSize(window.innerWidth, sizes.height - 250);
+  renderer.setSize(window.innerWidth, window.innerHeight - 250);
   renderer.shadowMap.enabled = true;
   renderer.physicallyCorrectLights = true;
   // renderer.outputEncoding = THREE.sRGBEncoding;

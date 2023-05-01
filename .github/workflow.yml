@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Nike By You Checks
 
 on:
   pull_request:
