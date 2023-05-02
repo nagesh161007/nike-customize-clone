@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactNode } from 'react';
 import './Carousel.css';
-import LeftArrow from '../Carousel/LeftArrow';
-import RightArrow from '../Carousel/RightArrow';
+import LeftArrow from './LeftArrow';
+import RightArrow from './RightArrow';
 
-function Carousel({ children, onChange, selectedIndex }) {
+interface CarouselProps {
+  children: ReactNode[];
+  onChange: (index: number) => void;
+  selectedIndex: number;
+}
+
+function Carousel({ children, onChange, selectedIndex }: CarouselProps): JSX.Element {
   const [length, setLength] = useState(children.length);
 
   useEffect(() => {

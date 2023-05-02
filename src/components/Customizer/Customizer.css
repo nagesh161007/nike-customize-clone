@@ -19,15 +19,16 @@
 }
 
 .color-generator {
+  padding: 0 16px;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .description-input {
   outline: none;
   visibility: visible;
-  width: 100%;
   min-width: 180px;
   background: #f5f5f5;
   padding: 12px;
@@ -100,4 +101,34 @@
   outline: none;
   border: 1px solid lightgray;
   border-radius: 32px;
+}
+
+.color-picker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.color-input {
+  -webkit-appearance: none;
+  padding: 0;
+  border: none;
+  outline: none;
+  background-color: white;
+  border: 1px solid white;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  margin: 0px 8px;
+}
+
+.color-input::-webkit-color-swatch {
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+}
+.color-input::-webkit-color-swatch-wrapper {
+  border: none;
+  border-radius: 50%;
+  padding: 0;
 }

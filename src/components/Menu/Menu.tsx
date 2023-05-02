@@ -1,16 +1,21 @@
 import React from 'react';
-import colorscustomiser from '../Customizer/ShoeConfig';
+import shoeColorConfigs from '../Customizer/ShoeConfig';
 import './Menu.css';
 
-function Menu({ selectMenu, closeMenu }) {
+interface Props {
+  selectMenu: (index: number) => void;
+  closeMenu: () => void;
+}
+
+function Menu({ selectMenu, closeMenu }: Props): JSX.Element {
   return (
     <div className='menu-container'>
       <button className='close-menu-button' onClick={closeMenu}>
         X
       </button>
       <ul className='menu-list'>
-        {colorscustomiser.length &&
-          colorscustomiser[0].colorConfigs.map((item, index) => {
+        {shoeColorConfigs.length > 0 &&
+          shoeColorConfigs[0].colorConfigs.map((item, index) => {
             return (
               <li
                 className='menu-item'

@@ -1,18 +1,19 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState, useRef, useEffect } from 'react';
 import './Customizer.css';
-import ColorPalette from '../ColorPalette/ColorPalette';
+import ColorPalette from '../ColorPalette/ColorPalette.tsx';
 import colorConfig from './ShoeConfig';
 import Carousel from '../Carousel/Carousel';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import { fetchColorPalette } from '../../utils/apiUtils/api';
 import { generateConfig } from '../Customizer/buildColorConfig';
-import { getRandomColor } from './colorUtils';
+import { getRandomColor, download, changeColor, blinkAnimation } from './customizeUtils';
 import BottomSheet from '../BottomSheet/BottomSheet';
 import Menu from '../Menu/Menu';
 
 const Customizer = (props) => {
   const { modelRef, controlsRef, rendererRef, selectedShoeIndex } = props;
+  const colorInputRef = useRef(null);
   const [showMenu, setShowMenu] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [description, setDescription] = useState('');
@@ -21,6 +22,10 @@ const Customizer = (props) => {
   function handleDescriptionChange(event) {
     setDescription(event.target.value);
   }
+
+  useEffect(() => {
+    setSelectedIndex(0);
+  }, [selectedShoeIndex]);
 
   async function generateColorPalette() {
     if (!description) {
@@ -32,27 +37,15 @@ const Customizer = (props) => {
       count: 8,
     };
     const response = await fetchColorPalette(requestBody);
-    setGeneratedColorConfig(generateConfig(response.data.colors));
+    setGeneratedColorConfig(generateConfig(selectedShoeIndex, response.data.colors));
   }
 
-  function changeColor(color, types) {
-    types.forEach((type) => {
-      if (
-        modelRef.current.getObjectByName(type) &&
-        modelRef.current.getObjectByName(type).material
-      ) {
-        modelRef.current.getObjectByName(type).material = modelRef.current
-          .getObjectByName(type)
-          .material.clone();
-
-        gsap.to(modelRef.current.getObjectByName(type).material.color, {
-          r: new THREE.Color(color).r,
-          g: new THREE.Color(color).g,
-          b: new THREE.Color(color).b,
-          duration: 0.3,
-        });
-      }
-    });
+  function applyColor() {
+    changeColor(
+      colorInputRef.current.value,
+      colorConfig[selectedShoeIndex].colorConfigs[selectedIndex].types,
+      modelRef,
+    );
   }
 
   const applyColorPalette = useCallback(() => {
@@ -75,7 +68,7 @@ const Customizer = (props) => {
         });
       });
     });
-  }, [modelRef, generatedColorConfig]);
+  }, [modelRef.current, generatedColorConfig]);
 
   const rotateModel = useCallback(() => {
     gsap.to(modelRef.current.rotation, {
@@ -90,40 +83,8 @@ const Customizer = (props) => {
         applyColorPalette();
       },
     });
-  }, [modelRef, applyColorPalette]);
+  }, [modelRef.current, applyColorPalette]);
 
-  const blinkAnimation = useCallback(
-    (type) => {
-      if (!modelRef.current.getObjectByName(type)) {
-        console.log(type);
-      }
-      modelRef.current.getObjectByName(type).material = modelRef.current
-        .getObjectByName(type)
-        .material.clone();
-      var mesh = modelRef.current.getObjectByName(type);
-
-      if (!mesh) {
-        return;
-      }
-
-      // create a GSAP animation for the color transition
-      var colorTween = gsap.to(mesh.material, {
-        envMapIntensity: 20,
-        duration: 0.5,
-        onComplete: function () {
-          // create another GSAP animation to transition back to the old color
-          var oldColorTween = gsap.to(mesh.material, {
-            envMapIntensity: 3,
-            duration: 0.5,
-          });
-          oldColorTween.play();
-        },
-      });
-
-      colorTween.play();
-    },
-    [modelRef.current],
-  );
   const onChange = useCallback(
     (index) => {
       setSelectedIndex(index);
@@ -134,10 +95,10 @@ const Customizer = (props) => {
         ease: 'power3.inOut',
       });
       colorConfig[selectedShoeIndex].colorConfigs[index].types.forEach((type) => {
-        blinkAnimation(type);
+        blinkAnimation(type, modelRef);
       });
     },
-    [blinkAnimation, controlsRef.current],
+    [modelRef.current, controlsRef.current],
   );
 
   function selectMenu(index) {
@@ -174,52 +135,23 @@ const Customizer = (props) => {
       duration: 1,
       ease: 'power3.inOut',
     });
-  }, [generatedColorConfig, modelRef, controlsRef]);
-
-  function download() {
-    const shadowPlane = modelRef.current.getObjectByName('shadow_plane');
-    shadowPlane.visible = false;
-    shadowPlane.material.visible = false;
-
-    setTimeout(() => {
-      const imageData = rendererRef.current.domElement.toDataURL();
-      const image = new Image();
-      image.src = imageData;
-      image.addEventListener('load', () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = image.width;
-        canvas.height = image.height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(image, 0, 0);
-        const dataURL = canvas.toDataURL('image/png');
-        const link = document.createElement('a');
-        link.download = 'nike-customizable.png';
-        link.href = dataURL;
-        document.body.appendChild(link);
-        link.click();
-        shadowPlane.visible = true;
-        shadowPlane.material.visible = true;
-      });
-    }, 100);
-  }
+  }, [generatedColorConfig, modelRef.current, controlsRef.current]);
 
   const currentColorConfig = generatedColorConfig.length
     ? generatedColorConfig
     : colorConfig[selectedShoeIndex].colorConfigs;
 
-  console.log(colorConfig[selectedShoeIndex].id);
-
   return (
     <div className='color-customizer'>
       <div className='color-generator'>
-        <input
-          placeholder='Describe theme for color'
-          type='text'
-          className='description-input'
-          value={description}
-          onChange={handleDescriptionChange}
-        ></input>
         <div className='button-container'>
+          <input
+            placeholder='Describe theme for color'
+            type='text'
+            className='description-input'
+            value={description}
+            onChange={handleDescriptionChange}
+          ></input>
           <button
             className='generate-button'
             disabled={description.trim() ? false : true}
@@ -257,7 +189,9 @@ const Customizer = (props) => {
           </button>
           <button
             className='apply-button'
-            onClick={download}
+            onClick={() => {
+              download(modelRef, rendererRef);
+            }}
             aria-label='Download Image'
             data-microtip-position='bottom'
             role='tooltip'
@@ -270,6 +204,24 @@ const Customizer = (props) => {
               height={24}
             ></img>
           </button>
+          <div className='color-picker'>
+            <input
+              type={'color'}
+              className='color-input'
+              aria-label='Pick Color'
+              data-microtip-position='bottom'
+              role='tooltip'
+              ref={colorInputRef}
+            ></input>
+            <button
+              className='menu-button'
+              onClick={() => {
+                applyColor();
+              }}
+            >
+              Apply
+            </button>
+          </div>
         </div>
         <div className='menu-container'>
           <button
@@ -278,7 +230,7 @@ const Customizer = (props) => {
               setShowMenu(!showMenu);
             }}
           >
-            MENU
+            Menu
           </button>
         </div>
       </div>
@@ -293,7 +245,9 @@ const Customizer = (props) => {
                 key={index}
                 indexString={`${selectedIndex + 1}/${currentColorConfig.length}`}
                 config={config}
-                changeColor={changeColor}
+                changeColor={(color, types) => {
+                  changeColor(color, types, modelRef);
+                }}
               ></ColorPalette>
             );
           })}

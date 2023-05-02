@@ -1,7 +1,12 @@
 import './Switcher.css';
 import shoeColorConfigs from '../Customizer/ShoeConfig';
 
-function Switcher({ selectShoe, selectedShoeIndex }) {
+interface Props {
+  selectShoe: (index: number) => void;
+  selectedShoeIndex: number;
+}
+
+function Switcher({ selectShoe, selectedShoeIndex }: Props): JSX.Element {
   return (
     <div className='switcher'>
       {shoeColorConfigs.map((shoe, index) => {
@@ -15,6 +20,7 @@ function Switcher({ selectShoe, selectedShoeIndex }) {
             src={shoe.src}
             width={64}
             height={64}
+            alt={shoe.id}
           ></img>
         );
       })}

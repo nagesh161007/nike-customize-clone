@@ -216,7 +216,7 @@ const shoeColorConfigs = [
           '#44312E',
           '#221E1F',
         ],
-        types: ['lf_medial_outer_collar', 'rt_medial_outer_collar'],
+        types: ['lf_lateral_outer_collar', 'rt_lateral_outer_collar'],
         title: 'Outside Body',
         show: true,
         modelPosition: {
@@ -237,7 +237,7 @@ const shoeColorConfigs = [
           '#44312E',
           '#221E1F',
         ],
-        types: ['rt_medial_inner_collar', 'lf_medial_inner_collar'],
+        types: ['lf_medial_outer_collar', 'rt_medial_outer_collar'],
         title: 'Inside Body',
         show: true,
         modelPosition: {
