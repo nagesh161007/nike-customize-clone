@@ -1,7 +1,7 @@
-import colorscustomiser from './ColorConFig';
+import colorscustomiser from './ShoeConfig';
 
-export function generateConfig(colors) {
-  const generatedConfig = colorscustomiser.map((config) => {
+export function generateConfig(colors, index) {
+  const generatedConfig = colorscustomiser[index].colorConfigs.map((config) => {
     return { ...config, colors: [...colors] };
   });
   return generatedConfig;

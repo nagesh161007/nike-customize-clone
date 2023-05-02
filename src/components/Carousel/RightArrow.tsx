@@ -1,6 +1,6 @@
-import React from 'react';
+import { SVGProps } from 'react';
 
-const RightArrow = (props) => (
+const RightArrow = (props: SVGProps<SVGSVGElement>) => (
   <svg width={24} height={24} fill='none' aria-hidden='true' {...props}>
     <path
       stroke='currentColor'
@@ -9,4 +9,5 @@ const RightArrow = (props) => (
     ></path>
   </svg>
 );
+
 export default RightArrow;

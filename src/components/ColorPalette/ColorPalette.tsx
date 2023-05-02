@@ -1,15 +1,25 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './ColorPalette.css';
 
-function ColorPalette({ config, changeColor, indexString }) {
+interface ColorPaletteProps {
+  config: {
+    colors: string[];
+    types: string[];
+    title: string;
+    modelPosition: string;
+  };
+  changeColor: (color: string, types: string[], modelPosition: string) => void;
+  indexString: string;
+}
+
+function ColorPalette({ config, changeColor, indexString }: ColorPaletteProps): JSX.Element {
   const { colors, types, title, modelPosition } = config;
-  const [selectedColorIndex, setSelectedColor] = useState(colors[0]);
+  const [selectedColorIndex, setSelectedColor] = useState(0);
 
   return (
-    <div className='color-palatte'>
+    <div className='color-palette'>
       <div className='color-tab-title'>
         {title}
-        {'  '}
         {indexString}
       </div>
       <div className='colors-tray'>
