@@ -15,6 +15,6 @@ test('renders learn react link', () => {
       <div>3</div>
     </Carousel>,
   );
-  const linkElement = screen.getByText(/5/i);
+  const linkElement = screen.getByText(/2/i);
   expect(linkElement).toBeInTheDocument();
 });
