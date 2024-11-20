@@ -181,21 +181,21 @@ function Playground() {
     <div className='app'>
       <div className='header'>
         <div className='title'>{shoeColorConfigs[selectedShoeIndex].name}</div>
-        <div className='icons-list'>
-          <a
-            href={'https://www.linkedin.com/in/nageshwara-sairam/'}
-            target='_blank'
-            rel='noreferrer'
-          >
-            <img
-              height={24}
-              width={24}
-              src={'/logo/linkedin.svg'}
-              alt={'git-logo'}
-              className='logo'
-            ></img>
-          </a>
-        </div>
+        // <div className='icons-list'>
+        //   <a
+        //     href={''}
+        //     target='_blank'
+        //     rel='noreferrer'
+        //   >
+        //     <img
+        //       height={24}
+        //       width={24}
+        //       src={'/logo/linkedin.svg'}
+        //       alt={'git-logo'}
+        //       className='logo'
+        //     ></img>
+        //   </a>
+        // </div>
       </div>
       <canvas ref={canvasRef} className='webgl'></canvas>
       <Switcher selectedShoeIndex={selectedShoeIndex} selectShoe={selectShoe} />
