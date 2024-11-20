@@ -151,7 +151,7 @@ const Customizer = (props) => {
             className='description-input'
             value={description}
             onChange={handleDescriptionChange}
-            style={{ display: "none"}}
+            style={{ display: 'none'}}
           ></input>
           <button
             className='generate-button'
