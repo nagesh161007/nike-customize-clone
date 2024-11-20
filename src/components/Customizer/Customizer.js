@@ -160,6 +160,7 @@ const Customizer = (props) => {
             aria-label='Generate color palette from description'
             data-microtip-position='bottom'
             role='tooltip'
+            style={{ display: 'none'}}
           >
             Generate
           </button>
